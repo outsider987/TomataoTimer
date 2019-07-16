@@ -1,0 +1,32 @@
+.TomataoWork
+{
+  width: 1280px;
+  height: 800px;
+  display: flex;
+  position: relative;
+  overflow: hidden;
+
+  .main
+  {
+    width: 830px;
+    height: 100%;
+    padding: 48px 85px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+  }
+
+  .menu
+  {
+    width: 450px;
+    height: 100%;
+    background-color: #003164;
+  }
+  .break {
+    .main {
+      background-color: #e5f3ff;
+    }
+  }
+
+}
