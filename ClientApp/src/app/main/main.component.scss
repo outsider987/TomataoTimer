@@ -15,7 +15,93 @@
     display: flex;
     flex-direction: column;
     position: relative;
-    background-color: #FFEDF7
+    background-color: #FFEDF7;
+    .AddTodoGroup
+    {
+      display: flex;
+      width: 445px;
+      height: 56px;
+      .AddToText
+      {
+        width: 100%;
+        border: 2px solid white;
+        font-size: 16px;
+        padding: 16px;
+        box-sizing: border-box;
+        color: #ff4384;
+        outline: #ff4384;
+        transition: all .5s;
+
+        &:focus {
+          border: 2px solid #ff4384;
+        }
+
+        &::-webkit-input-placeholder {
+          color: #ff4384;
+          font-weight: bolder;
+          font-style: italic;
+        }
+      }
+      .AddToButton
+      {
+        width: 56px;
+        height: 56px;
+        font-size: 24px;
+        background-color: #fff;
+        color: #ff4384;
+        border: 2px solid white;
+        outline: none;
+        transition: all .5s;
+
+        &:active {
+          border: 2px solid #ff4384;
+        }
+      }
+
+
+
+
+
+    }
+
+    .content
+      {
+        display: flex;
+        flex-direction: column;
+        .TodoInformation
+        {
+          display: flex;
+          margin-top: 145px;
+          align-items: center;
+          .Checked
+          {
+            width: 48px;
+            height: 48px;
+            border: 2px solid #003164;
+            border-radius: 50%;
+            cursor: pointer;
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            &::before {
+              content: '';
+              width: 40px;
+              height: 40px;
+              background-color: #003164;
+              position: absolute;
+              border-radius: 50%;
+              opacity: 0;
+              transition: all .3s;
+            }
+            &:hover::before {
+              opacity: 1;
+            }
+          }
+
+        }
+
+      }
   }
 
   .menu
