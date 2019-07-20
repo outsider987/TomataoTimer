@@ -98,7 +98,21 @@
               opacity: 1;
             }
           }
-
+          .Text
+          {
+            color: #003164;
+            border: 2px solid #003164;
+            font-size: 24px;
+            align-items: center;
+            font-weight: bolder;
+          }
+          .Label
+          {
+            width: 20px;
+            height: 20px;
+            background-color: #003164;
+            border-radius: 50%;
+          }
         }
 
       }
