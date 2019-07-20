@@ -1,14 +1,14 @@
 <div class  = "TomataoWork">
   <div class = "main">
     <div class = "AddTodoGroup">
-      <input class = "AddToText" type="text" placeholder="ADD A NEW MISSION..." >
-      <input class = "AddToButton" type="button" value="+" >
+      <input class = "AddToText" type="text" placeholder="ADD A NEW MISSION..." #addTodoInput (keyup.enter)="AddToDoItem(addTodoInput)">
+      <input class = "AddToButton" type="button" value="+" (click)="AddToDoItem(addTodoInput)"/>
     </div>
     <div class = "content">
       <div class = "TodoInformation">
         <div class = "Checked" ></div>
         <div class = "TextAndLabel">
-          <div class = "Text"></div>
+          <div class = "Text" @changeValue>{{TodoText}}</div>
           <div class = "Label"></div>
         </div>
       </div>
