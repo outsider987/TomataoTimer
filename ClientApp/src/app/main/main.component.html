@@ -8,8 +8,8 @@
       <div class = "TodoInformation">
         <div class = "Checked" ></div>
         <div class = "TextAndLabel">
-          <div class = "Text" @changeValue>{{TodoText}}</div>
-          <div class = "Label"></div>
+          <div class = "Text" @changeValue (click)="endCountDown()">{{TodoText}}</div>
+          <div class = "Label" (click)="startCountDown()"></div>
         </div>
       </div>
 

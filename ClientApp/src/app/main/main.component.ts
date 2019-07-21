@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { trigger, style, animate, transition,  } from '@angular/animations';
+import { CountdownService } from '../countdown.service';
+
 
 @Component({
   selector: 'app-main',
@@ -29,7 +31,7 @@ import { trigger, style, animate, transition,  } from '@angular/animations';
 })
 export class MainComponent implements OnInit {
   public TodoText = "THE FIRST THING TODO TODAY";
-  constructor() { }
+  constructor(public CountdownService:CountdownService) { }
 
   ngOnInit() {
   }
@@ -37,5 +39,14 @@ export class MainComponent implements OnInit {
     if(item.evalue =="") return;
     let key = (new Date()).getTime();
     console.log("testwork");
+  }
+
+  endCountDown()
+  {
+    this.CountdownService.StopCountDown();
+  }
+  startCountDown()
+  {
+    this.CountdownService.StartCountDown();
   }
 }
