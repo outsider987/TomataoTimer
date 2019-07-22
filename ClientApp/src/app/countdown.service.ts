@@ -7,19 +7,22 @@ import { take, map } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class CountdownService {
+  Timer;
   countDown;
   count = 60;
   constructor() { }
   StartCountDown()
   {
-    this.countDown = interval(1000);
-    this.countDown = timer(0,1000).subscribe();
+    // this.countDown = interval(1000);
+    this.Timer = timer(0,1000).subscribe(val =>this.countDown = val);
+    // this.countDown = timer(0,1000).subscribe(val=>val);
     // console.log(this.countDown.subscribe(val => console.log(val)) );
   }
   StopCountDown()
   {
-
-    console.log(this.countDown.subscribe() );
+    this.Timer.unsubscribe();
+    this.count -= this.countDown;
+    console.log(this.count);
   }
 
 }
