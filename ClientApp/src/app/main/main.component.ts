@@ -31,6 +31,7 @@ import { CountdownService } from '../countdown.service';
 })
 export class MainComponent implements OnInit {
   public TodoText = "THE FIRST THING TODO TODAY";
+  public CountDownTime = "WAIT FOR START";
   constructor(public CountdownService:CountdownService) { }
 
   ngOnInit() {
