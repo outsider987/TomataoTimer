@@ -16,6 +16,7 @@
     flex-direction: column;
     position: relative;
     background-color: #FFEDF7;
+
     .AddTodoGroup
     {
       display: flex;
@@ -68,12 +69,12 @@
       {
         display: flex;
         flex-direction: column;
-        .TodoInformation
+        .NowTodo
         {
           display: flex;
           margin-top: 145px;
           align-items: center;
-          .Checked
+          .NowTodo-Checked
           {
             width: 48px;
             height: 48px;
@@ -98,30 +99,118 @@
               opacity: 1;
             }
           }
-          .Text
-          {
-            color: #003164;
-            border: 2px solid #003164;
-            font-size: 24px;
-            align-items: center;
-            font-weight: bolder;
+          .NowTodo-info {
+            margin-left: 16px;
+            display: flex;
+            flex-direction: column;
+            .NowTodo-title {
+              color: #003164;
+              font-size: 24px;
+              font-weight: bold;
+            }
+            .NowTodo-round {
+              display: flex;
+              align-items: flex-end;
+              margin-top: auto;
+
+              .done-clock {
+                width: 12px;
+                height: 12px;
+                background-color: #003164;
+                border-radius: 50%;
+                margin-right: 8px;
+              }
+              .empty-clock {
+              width: 10px;
+                height: 10px;
+              border: 1px solid #ff4384;
+                border-radius: 50%;
+                margin-right: 8px;
+              }
+            }
           }
-          .Label
-          {
-            width: 20px;
-            height: 20px;
-            background-color: #003164;
-            border-radius: 50%;
-          }
+
+
         }
         .CountDownText
         {
-          font-size: 100px;
+          display: flex;
+          align-items: center;
+          height: 206px;
+          font-size: 20px;
           color: #ff4384;
-          font-weight: bolder;
+          font-weight: bold;
         }
+        .TimerGroup
+        {
+          border: 4px solid #FF4384;
+          border-radius: 50%;
+          width: 540px;
+          height: 540px;
+          position: absolute;
+          right: -65%;
+          top: 0;
+          transform: translateX(-50%);
+          z-index: 100;
+          margin: 130px 0;
+          box-sizing: border-box;
+          .TimerBody
+          {
+
+          }
+
+        }
+
+        .TimerGroup.pause {
+          border: 4px solid #00A7FF;
+
+          .TimerBody {
+            border: 4px solid #00A7FF;
+
+            &.TimerBody {
+              background-color: #00A7FF;
+            }
+
+            i.pause {
+              color: #fff;
+            }
+
+            i.stop {
+              color: #fff;
+            }
+          }
+        }
+
+        .TimerGroup.play {
+          border: 4px solid #00A7FF;
+
+          .TimerBody {
+            border: 4px solid #00A7FF;
+
+            &.TimerBody {
+              background-color: #fff;
+            }
+
+            i.pause {
+              color: #00A7FF;
+            }
+
+            i.stop {
+              color: #00A7FF;
+            }
+          }
+        }
+
+        .circle {
+          stroke: #00A7FF;
+        }
+
+
       }
   }
+
+
+
 
   .menu
   {
