@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { trigger, style, animate, transition,  } from '@angular/animations';
 import { CountdownService } from '../countdown.service';
+import { TodoService } from '../todo.service';
+
 
 
 @Component({
@@ -32,7 +34,10 @@ import { CountdownService } from '../countdown.service';
 export class MainComponent implements OnInit {
   public TodoText = "THE FIRST THING TODO TODAY";
   public CountDownTime = "WAIT FOR START";
-  constructor(public CountdownService:CountdownService) { }
+  // Data
+  todoItem = [];
+  constructor(public countdownService:CountdownService,public todoService: TodoService)
+  { this.todoItem = this.todoService.getTodoData();}
 
   ngOnInit() {
   }
@@ -44,10 +49,15 @@ export class MainComponent implements OnInit {
 
   endCountDown()
   {
-    this.CountdownService.StopCountDown();
+    this.countdownService.StopCountDown();
   }
   startCountDown()
   {
-    this.CountdownService.StartCountDown();
+    this.countdownService.StartCountDown();
+  }
+  getNowTodoItem(data) {
+    return data.filter( item => {
+      return item.doing == true;
+    })
   }
 }
