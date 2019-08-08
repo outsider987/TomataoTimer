@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { timer, Observable,interval } from 'rxjs';
 import { take, map } from 'rxjs/operators';
+import { TodoService } from './todo.service';
+
 
 
 
@@ -8,24 +10,25 @@ import { take, map } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class CountdownService {
-  Timer;
-  countDown;
+  workTime = 60000;
+  breakTime = 60000;
   count = 60;
   isCountDown = false;
   countDownStatus = "work";
-  constructor() { }
+  countDownTime;
+  public ShowCountDownTime = (new Date(this.workTime).getMinutes()< 10 ? '0'+new Date(this.workTime).getMinutes():new Date(this.workTime).getMinutes()) + ':' + (new Date(this.workTime).getSeconds() < 10? '0'+new Date(this.workTime).getSeconds():new Date(this.workTime).getSeconds());
+  constructor(public todoService :TodoService) { }
   StartCountDown()
   {
-    // this.countDown = interval(1000);
-    this.Timer = timer(0,1000).subscribe(val =>this.countDown = val);
-    // this.countDown = timer(0,1000).subscribe(val=>val);
-    // console.log(this.countDown.subscribe(val => console.log(val)) );
+
+    timer(0,1000).subscribe(val =>this.countDownTime = val);
+
     this.isCountDown = true;
   }
-  StopCountDown()
+  StopCountDown(LimitTime:number)
   {
-    this.Timer.unsubscribe();
-    this.count -= this.countDown;
+
+    LimitTime -= this.countDownTime;
     console.log(this.count);
     this.isCountDown = false;
   }
