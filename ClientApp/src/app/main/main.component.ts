@@ -47,14 +47,6 @@ export class MainComponent implements OnInit {
     console.log("testwork");
   }
 
-  endCountDown()
-  {
-    this.countdownService.StopCountDown();
-  }
-  startCountDown()
-  {
-    this.countdownService.StartCountDown();
-  }
   getNowTodoItem(data) {
     return data.filter( item => {
       return item.doing == true;
