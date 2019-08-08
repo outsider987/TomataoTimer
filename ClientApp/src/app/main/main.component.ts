@@ -32,8 +32,6 @@ import { TodoService } from '../todo.service';
   ]
 })
 export class MainComponent implements OnInit {
-  public TodoText = "THE FIRST THING TODO TODAY";
-  public CountDownTime = "WAIT FOR START";
   // Data
   todoItem = [];
   constructor(public countdownService:CountdownService,public todoService: TodoService)
