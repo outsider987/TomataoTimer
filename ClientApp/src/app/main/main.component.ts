@@ -50,4 +50,9 @@ export class MainComponent implements OnInit {
       return item.doing == true;
     })
   }
+  waitTodoItemFilter(data) {
+    return data.filter( item => {
+      return item.finished == false && item.doing == false;
+    }).slice(0,3);
+  }
 }

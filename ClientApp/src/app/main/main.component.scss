@@ -225,7 +225,39 @@
         .circle {
           stroke: #ff4384;
         }
+      .TodoListAll
+      {
+        margin-top: 100px;
+        display: flex;
+        flex-direction: column;
+        width: 445px;
+        .TodoList
+        {
+          list-style: none;
+          margin: 0;
+          padding: 0;
+          li {
+            display: flex;
+            height: 32px;
+            align-items: center;
+            border-bottom: 1px solid rgba(#003164, .2);
 
+            span {
+              margin-left: 8px;
+              color: #003164;
+              font-weight: bold;
+            }
+
+            .do-todo {
+              margin-left: auto;
+            }
+
+            i {
+              cursor: pointer;
+            }
+          }
+        }
+      }
 
       }
   }

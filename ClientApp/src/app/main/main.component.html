@@ -35,11 +35,19 @@
         </svg>
       </div>
 
-      <div class = "TodoList">
-
+      <div class = "TodoListAll">
+        <ul class = "TodoList">
+          <div *ngFor= "let item of waitTodoItemFilter(todoItem); ">
+            <li>
+              <i class="material-icons" (click)="finishedTodo(item.id)">panorama_fish_eye</i>
+              <span>{{item.title}}</span>
+              <i class="material-icons do-todo" (click)="setNowTodo(item.id)">play_circle_outline</i>
+            </li>
+          </div>
+        </ul>
       </div>
 
-      </div>
+    </div>
   </div>
 
   <div class = "menu">
