@@ -5,8 +5,16 @@ import { Injectable } from '@angular/core';
 })
 export class TodoService {
 
+
+  weekDateText;
+  weekDateTomato = [0,0,0,0,0,0,0];
+  weekRangeText;
+  weekTotal;
+  todayTotal;
+  thisWeek = 0;
+
   constructor() { }
-   todoitem = [
+  todoitem = [
     {
       id: (new Date()).getTime(),
       title: "the First thing to do today!",
@@ -65,5 +73,34 @@ export class TodoService {
    ]
    getTodoData() {
     return this.todoitem;
+  }
+  addTodoTomoto() {
+    this.todoitem.map( (item) => {
+      if(item.doing) {
+        item.tomoto = item.tomoto + 1;
+      }
+    })
+
+    this.getWeekBargraphData();
+  }
+  getWeekBargraphData() {
+    this.weekDateText = [];
+    let today = new Date();
+    let todayWeek = today.getDay();
+    let weekStartDate = new Date(today)
+    weekStartDate.setDate(today.getDate() - todayWeek + (7 * this.thisWeek));
+    weekStartDate.setHours(0);
+    weekStartDate.setMinutes(0);
+    weekStartDate.setSeconds(0);
+    for(let i = 0; i <= 6; i++) {
+      let newDate = new Date(weekStartDate)
+      newDate.setDate(weekStartDate.getDate() + i);
+      let todayMonth = ((newDate.getMonth() + 1) < 10? "0"+(newDate.getMonth() + 1):(newDate.getMonth() + 1));
+      let todayDate = ((newDate.getDate()) < 10? "0"+(newDate.getDate()):(newDate.getDate()));
+
+
+      this.weekDateText.push(todayMonth + '.' + todayDate);
+    }
+
   }
 }

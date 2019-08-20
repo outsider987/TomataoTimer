@@ -20,7 +20,7 @@
       </div>
 
       <div class = "CountDownText">
-        <span>{{countdownService.ShowCountDownTime}}</span>
+        <span>{{countdownService.showCountDownTime}}</span>
       </div>
 
 
@@ -28,7 +28,7 @@
         <div class = "TimerBody">
           <i *ngIf="!countdownService.isCountDown" class="material-icons pause" (click)="countdownService.StartCountDown()">play_circle_filled</i>
           <i *ngIf="countdownService.isCountDown" class="material-icons pause" (click)="countdownService.StopCountDown()">pause_circle_filled</i>
-          <i  class="material-icons stop" (click)="endCountDown()">stop</i>
+          <i  class="material-icons stop" (click)="countdownService.endCountDown()">stop</i>
         </div>
         <svg viewBox="0 0 33.15 33.15" class="circular-chart" stlye="">
           <path class="circle" [ngStyle]="countdownService.isCountDown && {'stroke-dasharray': countdownService.limitPercent+',100', 'animation-name': 'countdown', 'animation-duration': countdownService.limitSeconds+'s', 'animation-fill-mode': 'forwards', 'animation-timing-function': 'linear'}" d="M16.57 0.639 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
