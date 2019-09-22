@@ -39,9 +39,9 @@
         <ul class = "TodoList">
           <div *ngFor= "let item of waitTodoItemFilter(todoItem); ">
             <li>
-              <i class="material-icons" (click)="finishedTodo(item.id)">panorama_fish_eye</i>
+              <i class="material-icons" (click)="todoService.setfinishedTodo(item.id)">panorama_fish_eye</i>
               <span>{{item.title}}</span>
-              <i class="material-icons do-todo" (click)="setNowTodo(item.id)">play_circle_outline</i>
+              <i class="material-icons do-todo" (click)="todoService.setNowTodoItem(item.id)">play_circle_outline</i>
             </li>
           </div>
         </ul>

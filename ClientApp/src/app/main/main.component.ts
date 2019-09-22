@@ -39,10 +39,11 @@ export class MainComponent implements OnInit {
 
   ngOnInit() {
   }
-  AddToDoItem(item) {
-    if(item.evalue =="") return;
+  AddToDoItem(e) {
+    if(e.value == '') return;
     let key = (new Date()).getTime();
-    console.log("testwork");
+    this.todoService.addTodoData(key, e.value);
+    e.value = '';
   }
 
   getNowTodoItem(data) {
@@ -55,4 +56,8 @@ export class MainComponent implements OnInit {
       return item.finished == false && item.doing == false;
     }).slice(0,3);
   }
-}
+
+   // 完成待辦
+
+  }
+

@@ -14,7 +14,7 @@ export class TodoService {
   thisWeek = 0;
 
   constructor() { }
-  todoitem = [
+  todoItem = [
     {
       id: (new Date()).getTime(),
       title: "the First thing to do today!",
@@ -72,10 +72,10 @@ export class TodoService {
 
    ]
    getTodoData() {
-    return this.todoitem;
+    return this.todoItem;
   }
   addTodoTomoto() {
-    this.todoitem.map( (item) => {
+    this.todoItem.map( (item) => {
       if(item.doing) {
         item.tomoto = item.tomoto + 1;
       }
@@ -102,5 +102,54 @@ export class TodoService {
       this.weekDateText.push(todayMonth + '.' + todayDate);
     }
 
+  }
+
+
+  setfinishedTodo(id, status) {
+    this.todoItem.map((item) => {
+      if(item.id == id) {
+        item.finished = status;
+        item.doing = false;
+      }
+    });
+    let item = this.todoItem.filter( item => {
+      return item.doing == true;
+    });
+    if(item.length == 0){
+      this.setNowTodoItem('');
+    }
+
+    this.getWeekBargraphData();
+  }
+
+  setNowTodoItem(id) {
+    let item = this.todoItem.filter( item => {
+      item.doing = false;
+      if(id !== '') {
+        return item.finished == false && item.id == id;
+      }else{
+        return item.finished == false;
+      }
+    })
+    if(item.length > 0) {
+      item[0].doing = true;
+    }
+  }
+
+  addTodoData(key, title) {
+    this.todoItem.push({
+      id: key,
+      title: title,
+      tomoto: 0,
+      finished: false,
+      doing: false,
+      finishedDate: ''
+    });
+    let item = this.todoItem.filter( item => {
+      return item.doing == true;
+    });
+    if(item.length == 0){
+      this.setNowTodoItem('');
+    }
   }
 }

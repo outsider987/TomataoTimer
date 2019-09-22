@@ -101,7 +101,7 @@ export class CountdownService {
       this.countDownStatus = "work";
     }
     this.showCountDownTime = (new Date(this.workTime).getMinutes() < 10 ? '0'+new Date(this.workTime).getMinutes():new Date(this.workTime).getMinutes()) + ':' + (new Date(this.workTime).getSeconds() < 10? '0'+new Date(this.workTime).getSeconds():new Date(this.workTime).getSeconds());
-
+    clearInterval(this.countDownInterval);
   }
 
   playAudio(type){
