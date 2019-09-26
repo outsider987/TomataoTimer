@@ -265,11 +265,50 @@
 
 
 
-  .menu
-  {
+
+  .menu {
     width: 450px;
     height: 100%;
     background-color: #003164;
+    display: flex;
+    justify-content: flex-end;
+    height: 100%;
+    position: relative;
+
+    .menu-group {
+      margin-top: 48px;
+      margin-right: 85px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .menu-box {
+      width: 36px;
+      height: 36px;
+      margin-bottom: 48px;
+    }
+
+    .menu-group i {
+      color: white;
+      font-size: 36px;
+      display: flex;
+      flex-direction: column;
+      cursor: pointer;
+      &:hover {
+        color: #FF4384;
+      }
+    }
+
+    .menu-text {
+      color: white;
+      position: absolute;
+      transform: rotate(90deg);
+      transform-origin: right top;
+      right: 85px;
+      bottom: 48px;
+      font-size: 24px;
+      font-weight: bold;
+    }
   }
 
 
