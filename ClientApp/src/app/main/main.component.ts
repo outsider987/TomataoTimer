@@ -5,6 +5,7 @@ import { TodoService } from '../todo.service';
 
 
 
+
 @Component({
   selector: 'app-main',
   templateUrl: './main.component.html',
@@ -34,6 +35,9 @@ import { TodoService } from '../todo.service';
 export class MainComponent implements OnInit {
   // Data
   todoItem = [];
+  // 顯示設定頁
+  showSettingComponent = false;
+  settingType = '0';
   constructor(public countdownService:CountdownService,public todoService: TodoService)
   { this.todoItem = this.todoService.getTodoData();}
 
@@ -55,6 +59,13 @@ export class MainComponent implements OnInit {
     return data.filter( item => {
       return item.finished == false && item.doing == false;
     }).slice(0,3);
+  }
+
+  toggleSettingComponent(id) {
+    this.showSettingComponent = !this.showSettingComponent;
+    if(id) {
+      this.settingType = id;
+    }
   }
 
    // 完成待辦

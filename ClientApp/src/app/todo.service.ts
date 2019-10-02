@@ -152,4 +152,21 @@ export class TodoService {
       this.setNowTodoItem('');
     }
   }
+  deleteTodo(id) {
+    let deleteIndex;
+    this.todoItem.map( (item, index) => {
+      if(item.id == id) {
+        deleteIndex = index;
+      }
+    });
+    this.todoItem.splice(deleteIndex, 1);
+    let item = this.todoItem.filter( item => {
+      return item.doing == true;
+    });
+    if(item.length == 0){
+      this.setNowTodoItem('');
+    }
+    this.getWeekBargraphData();
+  }
+
 }

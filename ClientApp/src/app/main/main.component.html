@@ -4,7 +4,10 @@
       <input class = "AddToText" type="text" placeholder="ADD A NEW MISSION..." #addTodoInput (keyup.enter)="AddToDoItem(addTodoInput)">
       <input class = "AddToButton" type="button" value="+" (click)="AddToDoItem(addTodoInput)"/>
     </div>
-    <div class = "content">
+    <div *ngIf="getNowTodoItem(todoItem).length == 0">
+      <h1>PLEASE ADD TODO TO START...</h1>
+    </div>
+    <div class="content" *ngIf="getNowTodoItem(todoItem).length == 1">
       <div class = "NowTodo" *ngFor="let item of getNowTodoItem(todoItem)">
         <div class = "NowTodo-Checked" ></div>
         <div class="NowTodo-info">
@@ -52,16 +55,18 @@
 
   <div class = "menu">
     <div class="menu-group">
-      <div class ="menu-box">
-        <i class = "material-icons">list</i>
+      <div class="menu-box">
+        <i class="material-icons" (click)="toggleSettingComponent('1')">list</i>
       </div>
-      <div class ="menu-box">
-        <i class = "material-icons">assessment</i>
+      <div class="menu-box">
+          <i class="material-icons" (click)="toggleSettingComponent('2')">assessment</i>
       </div>
-      <div class ="menu-box">
-        <i class = "material-icons">library_music</i>
+      <div class="menu-box">
+          <i class="material-icons" (click)="toggleSettingComponent('3')">library_music</i>
       </div>
     </div>
-
+    <span class="menu-text">POMODORO</span>
   </div>
+  <app-setting  class="setting" @myInsertRemoveTrigger *ngIf="showSettingComponent" [parentSettingType]="settingType" (closeComponent)="toggleSettingComponent('0')"></app-setting>
+
 </div>
