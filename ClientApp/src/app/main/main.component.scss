@@ -314,3 +314,15 @@
 
 
 }
+.setting {
+  position: absolute;
+  z-index: 100;
+  top: 0;
+  background-color: #003164;
+  width: 1280px;
+  height: 800px;
+  display: flex;
+  padding: 0px 85px;
+  box-sizing: border-box;
+}
+
