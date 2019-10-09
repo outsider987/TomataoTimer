@@ -1,15 +1,13 @@
 import { Injectable } from '@angular/core';
-import { timer, Observable,interval } from 'rxjs';
-import { take, map } from 'rxjs/operators';
 import { TodoService } from './todo.service';
-
-
-
 
 @Injectable({
   providedIn: 'root'
 })
 export class CountdownService {
+
+  constructor(public todoService: TodoService) { }
+
   // 番茄鐘時間
   workTime = 60000;
   breakTime = 60000;
@@ -28,35 +26,48 @@ export class CountdownService {
   isCountDown = false;
   countDownStatus = "work";
   isEndCountDown = true;
+
+  // 輸出時間
+  showCountDownTime = (new Date(this.workTime).getMinutes() < 10 ? '0'+new Date(this.workTime).getMinutes():new Date(this.workTime).getMinutes()) + ':' + (new Date(this.workTime).getSeconds() < 10? '0'+new Date(this.workTime).getSeconds():new Date(this.workTime).getSeconds());
+
+  // 計時器
+  countDownInterval;
+
   // 剩餘秒數(動畫)
   limitSeconds;
   limitPercent;
-
+  
   workaudio = 'default';
   breakaudio = 'default';
 
-  countDownInterval ;
-  public showCountDownTime = (new Date(this.workTime).getMinutes()< 10 ? '0'+new Date(this.workTime).getMinutes():new Date(this.workTime).getMinutes()) + ':' + (new Date(this.workTime).getSeconds() < 10? '0'+new Date(this.workTime).getSeconds():new Date(this.workTime).getSeconds());
-
-
-  constructor(public todoService :TodoService) { }
-  StartCountDown()
-  {
+  startCountDown() {
     let countDownTime = 0;
     if (this.countDownStatus === "work") {
       countDownTime = this.workTime;
     } else if (this.countDownStatus === "break") {
       countDownTime = this.breakTime;
     }
+    // 結束時間 = 現在時間 + (番茄鐘時間 - 已經倒數時間)
     this.startTime = new Date();
     this.endTime = new Date(new Date().getTime() + (countDownTime - this.limitCountDownTime));
     this.limitSeconds = new Date(new Date(this.endTime).getTime() - new Date().getTime()).getTime() / 1000;
     this.limitPercent = (countDownTime - this.limitCountDownTime) / countDownTime * 100 + ",100";
     this.isCountDown = true;
     this.countDownInterval = setInterval(() => { this.countDownTimer(); },100);
-
-    this.isCountDown = true;
   }
+
+  stopCountDown() {
+    clearInterval(this.countDownInterval);
+    let countDownTime = 0;
+    if (this.countDownStatus === "work") {
+      countDownTime = this.workTime;
+    } else if (this.countDownStatus === "break") {
+      countDownTime = this.breakTime;
+    }
+    this.limitCountDownTime =  countDownTime - (new Date(new Date(this.endTime).getTime() - new Date().getTime()).getTime());
+    this.isCountDown = false;
+  }
+
   countDownTimer() {
     if(new Date(this.endTime) < new Date()) {
       clearInterval(this.countDownInterval);
@@ -80,19 +91,6 @@ export class CountdownService {
     this.showCountDownTime = (new Date(nowTime).getMinutes() < 10 ? "0"+new Date(nowTime).getMinutes():new Date(nowTime).getMinutes()) + ":" + (new Date(nowTime).getSeconds() < 10 ? "0"+new Date(nowTime).getSeconds():new Date(nowTime).getSeconds())
   }
 
-
-
-  StopCountDown() {
-    clearInterval(this.countDownInterval);
-    let countDownTime = 0;
-    if (this.countDownStatus === "work") {
-      countDownTime = this.workTime;
-    } else if (this.countDownStatus === "break") {
-      countDownTime = this.breakTime;
-    }
-    this.limitCountDownTime =  countDownTime - (new Date(new Date(this.endTime).getTime() - new Date().getTime()).getTime());
-    this.isCountDown = false;
-  }
   endCountDown() {
     this.limitCountDownTime =  0;
     this.isCountDown = false;

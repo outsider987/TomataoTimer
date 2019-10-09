@@ -40,7 +40,7 @@ export class SettingComponent implements OnInit {
 
   todoItem = [];
 
-  constructor(public todoService: TodoService,public countdownService: CountdownService) {
+  constructor(public todoService: TodoService,public countdownService: CountdownService) { 
     this.todoItem = this.todoService.getTodoData();
   }
 

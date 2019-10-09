@@ -5,15 +5,8 @@ import { Injectable } from '@angular/core';
 })
 export class TodoService {
 
-
-  weekDateText;
-  weekDateTomato = [0,0,0,0,0,0,0];
-  weekRangeText;
-  weekTotal;
-  todayTotal;
-  thisWeek = 0;
-
   constructor() { }
+
   todoItem = [
     {
       id: (new Date()).getTime(),
@@ -22,8 +15,7 @@ export class TodoService {
       finished: false,
       doing: true,
       finishedDate: ''
-    }
-    ,    {
+    },    {
       id: (new Date()).getTime() + 1,
       title: "the second thing to do today!",
       tomoto: 0,
@@ -68,21 +60,27 @@ export class TodoService {
       doing: false,
       finishedDate: new Date(new Date().getTime() - 87400000 * 6)
     }
+  ];
 
+  weekDateText;
+  weekDateTomato = [0,0,0,0,0,0,0];
+  weekRangeText;
+  weekTotal;
+  todayTotal;
 
-   ]
-   getTodoData() {
-    return this.todoItem;
-  }
-  addTodoTomoto() {
-    this.todoItem.map( (item) => {
-      if(item.doing) {
-        item.tomoto = item.tomoto + 1;
-      }
-    })
+  thisWeek = 0;
 
+  lastWeek() {
+    this.thisWeek -= 1 ;
     this.getWeekBargraphData();
   }
+
+  nextWeek() {
+    if(this.thisWeek == 0) return;
+    this.thisWeek += 1 ;
+    this.getWeekBargraphData();
+  }
+
   getWeekBargraphData() {
     this.weekDateText = [];
     let today = new Date();
@@ -101,9 +99,84 @@ export class TodoService {
 
       this.weekDateText.push(todayMonth + '.' + todayDate);
     }
+    let weekStart = new Date(weekStartDate);
+    let weekEnd = new Date(weekStart.getTime() + 86400000 * 6);
 
+    for(let i = 0; i <= 6; i++) {
+      let tomorrow = new Date(weekStart);
+      let start = new Date(tomorrow);
+      start.setDate(tomorrow.getDate() + i);
+      tomorrow.setDate(tomorrow.getDate() + 1 + i);
+      let end = new Date(tomorrow);
+      let dayToDo = this.todoItem.filter(item => {
+        let finishedDate = new Date(item.finishedDate)
+        return finishedDate < end && finishedDate >= start
+      });
+      let totalTomato = 0;
+      dayToDo.map(item => {
+        totalTomato += item.tomoto;
+      });
+
+      if(todayWeek == i && this.thisWeek == 0){      
+        let todayToDo = this.todoItem.filter(item => {
+          let hasDate = false;
+          if(item.finishedDate !== '') {
+            let finishedDate = new Date(item.finishedDate);
+            hasDate = (finishedDate < end && finishedDate >= start);
+          }
+          return ( hasDate || item.finishedDate == '')
+        });
+
+        this.todayTotal = 0;
+        let todayTomato = 0;
+        todayToDo.map(item => {
+          todayTomato += item.tomoto;
+        });
+        if(this.thisWeek == 0) {
+          this.todayTotal = todayTomato;
+          this.weekDateTomato[i] = todayTomato;
+        }
+      } else {
+        this.weekDateTomato[i] = totalTomato;
+      }
+    }
+    this.weekRangeText = weekStart.getFullYear() + "." + (weekStart.getMonth() + 1) + "." + weekStart.getDate() + " ~ " + weekEnd.getFullYear() + "." + (weekEnd.getMonth() + 1) + "." + weekEnd.getDate();
+
+    this.weekTotal = this.weekDateTomato.reduce(function (a, b) {
+      return a + b;
+    }, 0);
   }
 
+  getTodoData() {
+    return this.todoItem;
+  }
+
+  addTodoData(key, title) {
+    this.todoItem.push({
+      id: key,
+      title: title,
+      tomoto: 0,
+      finished: false,
+      doing: false,
+      finishedDate: ''
+    });
+    let item = this.todoItem.filter( item => {
+      return item.doing == true;
+    });
+    if(item.length == 0){
+      this.setNowTodoItem('');
+    }
+  }
+
+  addTodoTomoto() {
+    this.todoItem.map( (item) => {
+      if(item.doing) {
+        item.tomoto = item.tomoto + 1;
+      }
+    })
+
+    this.getWeekBargraphData();
+  }
 
   setfinishedTodo(id, status) {
     this.todoItem.map((item) => {
@@ -136,22 +209,6 @@ export class TodoService {
     }
   }
 
-  addTodoData(key, title) {
-    this.todoItem.push({
-      id: key,
-      title: title,
-      tomoto: 0,
-      finished: false,
-      doing: false,
-      finishedDate: ''
-    });
-    let item = this.todoItem.filter( item => {
-      return item.doing == true;
-    });
-    if(item.length == 0){
-      this.setNowTodoItem('');
-    }
-  }
   deleteTodo(id) {
     let deleteIndex;
     this.todoItem.map( (item, index) => {
@@ -168,5 +225,4 @@ export class TodoService {
     }
     this.getWeekBargraphData();
   }
-
 }
